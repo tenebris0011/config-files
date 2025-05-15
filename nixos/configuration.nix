@@ -49,7 +49,9 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    konsole
+  ];
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -128,9 +130,9 @@
     telegram-desktop
     btop
     wireguard-tools
-    kitty
     lazygit
     nerdfonts
+    alacritty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
