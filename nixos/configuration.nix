@@ -88,7 +88,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nathanw = {
@@ -102,8 +102,8 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nathanw";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "nathanw";
 
   # Install firefox.
   programs.firefox.enable = true;
