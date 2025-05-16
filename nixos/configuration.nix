@@ -137,6 +137,8 @@
     ripgrep
     fzf
     fd
+    go
+    python314
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
