@@ -155,12 +155,9 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # Added this so that I could bring up my WireGuard tunnel.
+  # May change it to a different DNS server in the future.
+
   networking.nameservers = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
   services.resolved = {
@@ -170,6 +167,31 @@
     fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
     dnsovertls = "true";
   };
+
+  #########################################
+  ####### ADDED FROM JOSEFERBEN.COM #######
+  #########################################
+  # https://www.joseferben.com/posts/thinkpad_t14_with_nixos_and_i3wm
+  # Enabling the fingerprint reader for my T14
+  services.fprintd.enable = true;
+  security.pam.services.login.fprintAuth = true;
+  security.pam.services.xscreensaver.fprintAuth = true;
+
+  # Kernel settings
+  boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" "thinkpad_acpi" ];
+  boot.initrd.kernelModules = [ "acpi_call" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  #########################################
+  ######### END OF JOSEFERBEN.COM #########
+  #########################################
+ 
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html). 
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
