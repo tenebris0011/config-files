@@ -104,8 +104,8 @@
   };
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "nathanw";
+  #services.displayManager.autoLogin.enable = true;
+  #services.displayManager.autoLogin.user = "nathanw";
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -143,6 +143,7 @@
     luarocks-nix
     lua
     xclip
+    fprintd
   ];
  
   # Some programs need SUID wrappers, can be configured further or are
@@ -183,8 +184,10 @@
   # https://www.joseferben.com/posts/thinkpad_t14_with_nixos_and_i3wm
   # Enabling the fingerprint reader for my T14
   services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
   security.pam.services.login.fprintAuth = true;
-  security.pam.services.xscreensaver.fprintAuth = true;
+  #security.pam.services.xscreensaver.fprintAuth = true;
 
   # Kernel settings
   boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" "thinkpad_acpi" ];
@@ -203,6 +206,8 @@
     # Needed for touchpad to work properly (click doesn't register by pushing down the touchpad).
     "psmouse.synaptics_intertouch=0"
   ];
+
+  powerManagement.cpuFreqGovernor = "performance";
  
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
